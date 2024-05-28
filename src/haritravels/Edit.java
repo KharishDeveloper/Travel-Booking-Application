@@ -47,10 +47,12 @@ public class Edit {
 						ps1.setString(1, mobile);
 						ResultSet result1 = ps1.executeQuery();
 						if (result1.next()) {
+							String DatabasedTravelDate = result1.getString(1);
+							LocalDate DatabasedTravelDate1 = LocalDate.parse(DatabasedTravelDate);
 							LocalDate TravelDate = LocalDate.parse(RescheduleDate);
 							LocalDate PresentDate = LocalDate.now();
-							long Days = ChronoUnit.DAYS.between(PresentDate, TravelDate);
-//						System.out.println(value);
+							long Days = ChronoUnit.DAYS.between(DatabasedTravelDate1, TravelDate);
+							System.out.println(Days);
 							while (Days <= 10) {
 								System.out.println("It seems that you entered expired date that means past date");
 								System.out.println("You entered a date that is less than 10 days away.");

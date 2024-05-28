@@ -10,6 +10,10 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 public class Menu {
+	
+	public static String password;
+	public static int checkerValueSmall=0;
+	public static int checkerValueCap=0;
 
 	public static PreparedStatement menu()
 			throws NullPointerException, IOException, SQLException, SQLNonTransientConnectionException {
@@ -92,16 +96,20 @@ public class Menu {
 
 		} else {
 			System.out.println("Enter the password :");
-			String Password = Constants.sc.next();
-			while (Password.length() < 8) {
-				// 10 size
-				System.out.println("Password length must be 8 characters");
-				System.out.println("");
-//				System.out.println("set your password strongly");
+			password = Constants.sc.next();
+			password = PasswordLogic.PasswordMaintainingLogic(password);
+			System.out.println(password+" from menu");
+			System.out.println(password+"from method");
+			
+//			while (Password.length() < 8) {
+//				// 10 size
+//				System.out.println("Password length must be 8 characters");
 //				System.out.println("");
-				System.out.println("Re-enter your password :");
-				Password = Constants.sc.next();
-			}
+////				System.out.println("set your password strongly");
+////				System.out.println("");
+//				System.out.println("Re-enter your password :");
+//				Password = Constants.sc.next();
+//			}
 //			System.out.println("password verified");
 			System.out.println("");
 //		Testdata.registered_users.keySet();
@@ -136,7 +144,7 @@ public class Menu {
 			PreparedStatement ps1 = Constants.GetConnection().prepareStatement(Query1);
 			ps1.setString(1, MobileNumber);
 			ps1.setString(2, Mail);
-			ps1.setString(3, Password);
+			ps1.setString(3, password);
 			ps1.setString(4, FirstName);
 			ps1.setString(5, LastName);
 			ps1.setString(6, FullName);

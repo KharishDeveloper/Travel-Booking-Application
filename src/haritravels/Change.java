@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 public class Change extends Sign {
 
 	static String HTTSId;
+	private static String password;
 
 	public static void forgot() throws SQLException, NullPointerException, IOException {
 		System.out.println("enter the mobile number :");
@@ -58,11 +59,19 @@ public class Change extends Sign {
 				String Password = resultSet.getString(1);
 				System.out.println("enter your new password");
 				String NewPassword = Constants.sc.next();
-				while (Password.equals(NewPassword)) {
-					System.out.println("old and new password must not be same !!!");
-					System.out.println("Enter your password again :");
-					NewPassword = Constants.sc.next();
-				}
+//				while (Password.equals(NewPassword)) {
+//					System.out.println("old and new password must not be same !!!");
+//					System.out.println("Enter your password again :");
+//					NewPassword = Constants.sc.next();
+//				}
+//				password = Constants.sc.next();
+				NewPassword = PasswordLogic.PasswordMaintainingLogic(NewPassword);
+				System.out.println(NewPassword+" from change");
+				System.out.println(Menu.password+"from menu");
+				
+				NewPassword = PasswordLogic.PasswordMaintainingLogic(NewPassword);
+				System.out.println(NewPassword);
+				System.out.println(Password);
 				System.out.println("enter your password again..");
 				String ConfirmPassword = Constants.sc.next();
 				if (NewPassword.equals(ConfirmPassword)) {
