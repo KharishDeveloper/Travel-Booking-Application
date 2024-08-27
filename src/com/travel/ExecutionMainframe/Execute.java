@@ -1,11 +1,16 @@
-package haritravels;
+package com.travel.ExecutionMainframe;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class Execution {
+import com.travel.properties.Constants;
+
+public class Execute {
 
 	public static void main(String[] args) throws NullPointerException, SQLException, IOException {
-		Display.StartingScreen();
+
+		Constants.GetLogoInformation();
+
 	}
+
 }
