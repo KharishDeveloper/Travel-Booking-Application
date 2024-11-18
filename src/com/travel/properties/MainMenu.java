@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import com.travel.logic.UserFeatureTravelStatus;
 import com.travel.logic.UserJourneyRegister;
 import com.travel.logic.UserServiceLogout;
+import com.travel.logic.UserServiceTicketCancellation;
 import com.travel.logic.UserServiceTravelTickets;
 import com.travel.logic.UserServiceUpdatePassword;
 import com.travel.logic.UserserviceReschedule;
@@ -13,12 +14,12 @@ public class MainMenu {
 
 	public static void Main() throws SQLException {
 		System.out.println(
-				"1.plan the journey \t 2.get the tickets\n 3. reschedule \t 4. change the password \n 5. check the travelstatus \n 6. logout");
+				"1.plan the journey \t 2.get the tickets\n 3. reschedule \t 4. change the password \n 5. check the travelstatus \n 6. Cancel Ticket \n 7. logout");
 		int Choice = Constants.sc.nextInt();
 		switch (Choice) {
 		case 1:
 			UserJourneyRegister.registartion();
-			break;
+//			break;
 		case 2:
 			UserServiceTravelTickets.GetTicketInformation();
 			break;
@@ -32,6 +33,10 @@ public class MainMenu {
 			UserFeatureTravelStatus.FeatureImplement();
 			break;
 		case 6:
+			// canceling ticket
+			UserServiceTicketCancellation.CancelTicket();
+			break;
+		case 7:
 			UserServiceLogout.Logout();
 			break;
 		default:

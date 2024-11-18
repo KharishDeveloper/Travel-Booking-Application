@@ -34,6 +34,8 @@ public class UserserviceReschedule {
 				MainMenu.Main();
 				break;
 			}
+		} else {
+			System.out.println("You don't have any upcoming travel date !!!");
 		}
 	}
 
@@ -43,15 +45,16 @@ public class UserserviceReschedule {
 		System.out.println("Enter the date :[YYYY-MM-DD]");
 		String Date = Constants.sc.next();
 		LocalDate RescheduleDate = LocalDate.parse(Date);
-		LocalDate date1 = LocalDate.parse(TravellerDate);
-		days = ChronoUnit.DAYS.between(date1, RescheduleDate);
+		LocalDate PreviousTravelDate = LocalDate.parse(TravellerDate);
+		days = ChronoUnit.DAYS.between(PreviousTravelDate, RescheduleDate);
 		System.out.println(days);
 		while (days <= 10) {
 			System.out.println(days);
 			System.out.println("you are not allowed to reschedule teh travel");
 			System.out.println("please change the date !!!");
 			Date = Constants.sc.next();
-			days = ChronoUnit.DAYS.between(RescheduleDate, date1);
+			RescheduleDate = LocalDate.parse(Date);
+			days = ChronoUnit.DAYS.between(PreviousTravelDate, RescheduleDate);
 			System.out.println(days);
 		}
 		System.out.println(days);

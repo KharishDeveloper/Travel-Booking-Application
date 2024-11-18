@@ -21,6 +21,12 @@ public class UserServiceTravelTickets {
 		System.out.println("Enter the HTTS-ID : ");
 		id = Constants.sc.next();
 		String checkID = TravelStatusFeatureDB.GetTravelDate(Constants.DoConnect(), UserServiceTravelTickets.id);
+		if(checkID==null) {
+			System.out.println("not found any details !!!");
+			MainMenu.Main();
+		}
+		else {
+			
 		UserFeatureTravelStatus.TravelStatus(checkID);
 		TravelStatusFeatureDB.UpdateTravelStatus(Constants.DoConnect(), checkID, UserServiceTravelTickets.id);
 		GetTicketsDB.GetInformationFromDetails(Constants.DoConnect(), id);
@@ -33,7 +39,9 @@ public class UserServiceTravelTickets {
 			System.out.println("h2");
 			GetTicketsDB.GetPassengerInformation(Constants.DoConnect(), id);
 			MainMenu.Main();
+//			break;
 			
+		}
 		}
 		
 		

@@ -1,26 +1,28 @@
 package com.travel.logic;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import com.travel.entity.UserServiceLogin;
 import com.travel.properties.Constants;
+import com.travel.properties.Home;
 import com.travel.properties.MainMenu;
 import com.travel.saveDB.UpdatepasswordDB;
 
 public class UserServiceUpdatePassword {
 
-	public static void FogotPassword() throws SQLException {
+	public static void FogotPassword() throws SQLException, NullPointerException, IOException {
 
 		System.out.println("Enter the mobile number : ");
 		String MobileNumber = Constants.sc.next();
 		// write a d b connect call to check the mob is registered or not
 		boolean checkMobileNumber = UpdatepasswordDB.CheckMobileNumber(Constants.DoConnect(), MobileNumber);
-		if (checkMobileNumber) {
+		if (checkMobileNumber == true) {
 			String OTP = Constants.GenerateHttsID();
 			System.out.println("Your OTP is : " + OTP);
 			System.out.println("Enter the OTP : ");
 			String enter = Constants.sc.next();
-			if (OTP.equals(enter)) {
+			if (enter.equals(OTP)) {
 				System.out.println("Enter the new password : ");
 				String newpwd = Constants.sc.next();
 				System.out.println("Enter the confirm password : ");
@@ -31,6 +33,7 @@ public class UserServiceUpdatePassword {
 					if (oldPWD) {
 						UpdatepasswordDB.PasswordUpdate(Constants.DoConnect(), MobileNumber, confirmpwd);
 						System.out.println("updated successfully !!!");
+						Home.HomePage();
 
 					} else {
 						System.out.println("your new and old password must not be same !!!");
@@ -39,9 +42,11 @@ public class UserServiceUpdatePassword {
 				} else {
 					System.out.println("your new and confirm password must be same !!!");
 				}
+			} else {
+
+				System.out.println("mismatched the OTP");
+				System.out.println("please try again later and enter correct OTP");
 			}
-			System.out.println("mismatched the OTP");
-			System.out.println("please try again later and enter correct OTP");
 		} else {
 			System.out.println("you are not a registered user ");
 			System.out.println("please register first !!!");

@@ -1,5 +1,6 @@
 package com.travel.logic;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import com.travel.entity.UserServiceLogin;
@@ -9,7 +10,7 @@ import com.travel.saveDB.UserServiceLoginDB;
 
 public class UserServiceLoginLogic {
 
-	public static void pwd() throws SQLException {
+	public static void pwd() throws SQLException, NullPointerException, IOException {
 		UserServiceLogin.TravelLogin();
 		boolean checkMobAndPwd = UserServiceLoginDB.CheckMobAndPwd(Constants.DoConnect(), UserServiceLogin.MobileNumber,
 				UserServiceLogin.Password);
@@ -22,7 +23,7 @@ public class UserServiceLoginLogic {
 		} else {
 			System.out.println("invalid details was entered !!!");
 			Constants.FailedCount--;
-			System.out.println("failedcount :" + --(Constants.FailedCount) + "\t " + "default count is 3 ");
+			System.out.println("failedcount :" + (Constants.FailedCount) + "\t " + "default count is 3 ");
 			System.out.println("sign-in the account with valid credentials !!");
 			System.out.println("1. Reset the password");
 			System.out.println("2. Continue to login");

@@ -40,7 +40,7 @@ public class UserServiceRegisterLogic {
 		UserServiceRegister.password = PasswordLogic.PasswordMaintainingLogic(UserServiceRegister.password);
 		System.out.println("You have successfully completed the registration !!!");
 		System.out.println(" ");
-		boolean registerUserChecking = UserServiceRegisterDB.RegisterUserChecking(Constants.DoConnect());
+		boolean registerUserChecking = UserServiceRegisterDB.CheckUserExistance(Constants.DoConnect());
 		if (!registerUserChecking) {
 			UserServiceRegisterDB.InsertData(Constants.DoConnect());
 			System.out.println("You have login to the account");

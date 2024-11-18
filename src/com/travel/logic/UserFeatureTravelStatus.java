@@ -23,12 +23,14 @@ public class UserFeatureTravelStatus {
 		} catch (Exception q) {
 			System.out.println("you are an invalid ID and try again");
 		}
-
+		
 	}
 
 	public static String TravelStatus(String Date) {
+//		System.out.println("Date : "+Date);
+		LocalDate now = LocalDate.now();
 		LocalDate parse = LocalDate.parse(Date);
-		long Days = ChronoUnit.DAYS.between(LocalDate.now(), parse);
+		long Days = ChronoUnit.DAYS.between(now, parse);
 		if (Days >= 2) {
 			TravelStatus = "Travel within " + Days + " days";
 

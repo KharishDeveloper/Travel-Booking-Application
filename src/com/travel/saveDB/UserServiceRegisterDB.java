@@ -12,7 +12,7 @@ import com.travel.properties.Constants;
 
 public class UserServiceRegisterDB {
 
-	public static boolean RegisterUserChecking(Connection con) throws SQLException, NullPointerException, IOException {
+	public static boolean CheckUserExistance(Connection con) throws SQLException, NullPointerException, IOException {
 		String Query = "select mobile from users_data where mobile=?;";
 		PreparedStatement ps = con.prepareStatement(Query);
 		ps.setString(1, UserServiceRegister.mobileNumber);
@@ -28,7 +28,7 @@ public class UserServiceRegisterDB {
 	}
 	
 	public static int InsertData(Connection con) throws SQLException {
-		String Query1 = "insert into users_data(mobile,email,password,firstName,lastName,fullName) values(?,?,?,?,?,?);";
+		String Query1 = "insert into users_data(mobile,email,password,firstName,lastName,fullName,InsertedTimeAndDate) values(?,?,?,?,?,?,CURRENT_TIMESTAMP());";
 		PreparedStatement ps1 = Constants.DoConnect().prepareStatement(Query1);
 		ps1.setString(1, UserServiceRegister.mobileNumber);
 		ps1.setString(2, UserServiceRegister.Mail);
