@@ -8,30 +8,29 @@ import java.sql.SQLException;
 
 import com.travel.entity.Journeydetails;
 import com.travel.entity.UserServiceLogin;
-import com.travel.logic.UserJourneyRegister;
 import com.travel.properties.Constants;
 
 public class BusServiceDB {
 
-	public static int seats, amount;
+	public static int seats, amount, availableBuses;
 
-	public static void GetBusDetails() throws SQLException {
-		Connection connection = Constants.DoConnect();
-		String Query11 = "select * from buses;";
-		PreparedStatement ps1 = connection.prepareStatement(Query11);
-		ResultSetMetaData md = ps1.getMetaData();
-		ResultSet Result2 = ps1.executeQuery();
-		System.out.println(" ");
-		while (Result2.next()) {
-			System.out.println(md.getColumnName(1) + " : " + Result2.getString(1) + "\t" + md.getColumnName(2) + " : "
-					+ Result2.getString(2));
-			System.out.println(md.getColumnName(3) + " : " + Result2.getString(3) + "\t" + md.getColumnName(4) + " : "
-					+ Result2.getString(4) + "\t" + md.getColumnName(5) + " : " + Result2.getString(5) + "\t");
-			System.out.println(" ");
-//			seats = Result2.getInt(5);
-//			amount = Result2.getInt(4);
-		}
-	}
+//	public static void GetBusDetails() throws SQLException {
+//		Connection connection = Constants.DoConnect();
+//		String Query11 = "select * from buses;";
+//		PreparedStatement ps1 = connection.prepareStatement(Query11);
+//		ResultSetMetaData md = ps1.getMetaData();
+//		ResultSet Result2 = ps1.executeQuery();
+//		System.out.println(" ");
+//		while (Result2.next()) {
+//			System.out.println(md.getColumnName(1) + " : " + Result2.getString(1) + "\t" + md.getColumnName(2) + " : "
+//					+ Result2.getString(2));
+//			System.out.println(md.getColumnName(3) + " : " + Result2.getString(3) + "\t" + md.getColumnName(4) + " : "
+//					+ Result2.getString(4) + "\t" + md.getColumnName(5) + " : " + Result2.getString(5) + "\t");
+//			System.out.println(" ");
+////			seats = Result2.getInt(5);
+////			amount = Result2.getInt(4);
+//		}
+//	}
 
 	public static void GetBusBookingDetails(String source, String Destination) throws SQLException {
 		Connection connection = Constants.DoConnect();
@@ -43,6 +42,8 @@ public class BusServiceDB {
 		ResultSetMetaData rs = result1.getMetaData();
 		System.out.println("a");
 		while (result1.next()) {
+
+			availableBuses++;
 //			rs.getColumnName(1);
 //			System.out.println("b");
 //			System.out.print(rs.getColumnName(1) + " : \t" + result1.getString(1));
@@ -61,16 +62,17 @@ public class BusServiceDB {
 //			System.out.println(" ");
 			System.out.println("");
 			for (int i = 1; i <= 5; i++) {
-				System.out.print(rs.getColumnName(i)+" : "+ result1.getString(i) + " \t");
+				System.out.print(rs.getColumnName(i) + " : " + result1.getString(i) + " \t");
 				if (i == 3) {
 					System.out.println("");
 					System.out.println("-----------------------------------");
 				}
 			}
+			System.out.println("");
 
 			seats = result1.getInt(5);
 			amount = result1.getInt(4);
-			UserJourneyRegister.BusNumber=result1.getInt(1);
+//			UserJourneyRegister.BusNumber=result1.getInt(1);
 //			return true;
 //		} else {
 //			System.out.println("There is no bus bookings based on your places !!!");
@@ -196,12 +198,11 @@ public class BusServiceDB {
 
 	}
 
-	public static void UpdateSeats(Connection con, int RSeats, String s, String d) throws SQLException {
-		String Query2 = "update buses set seats=? where (startplace,destination)=(?,?);";
+	public static void UpdateSeats(Connection con, int RSeats, int BusNumber2) throws SQLException {
+		String Query2 = "update buses set seats=? where BusNumber=?";
 		PreparedStatement ps2 = con.prepareStatement(Query2);
 		ps2.setInt(1, RSeats);
-		ps2.setString(2, s);
-		ps2.setString(3, d);
+		ps2.setInt(2, BusNumber2);
 		ps2.executeUpdate();
 	}
 
@@ -214,18 +215,18 @@ public class BusServiceDB {
 		if (set.next()) {
 			return set.getInt(1);
 		}
-		return -1;
+		return 0;
 	}
 
-	public static void check(Connection con) throws SQLException {
-		String sql = "select * from buses where (startplace, destination)=(?,?);";
-		PreparedStatement stmt = con.prepareStatement(sql);
-		stmt.setString(1, "Tenali");
-		stmt.setString(2, "Guntur");
-		ResultSet set = stmt.executeQuery();
-		while (set.next()) {
-			System.out.println(set.getString(1));
-		}
-
-	}
+//	public static void checkSourceAndDestination(Connection con) throws SQLException {
+//		String sql = "select * from buses where (startplace, destination)=(?,?);";
+//		PreparedStatement stmt = con.prepareStatement(sql);
+//		stmt.setString(1, "Tenali");
+//		stmt.setString(2, "Guntur");
+//		ResultSet set = stmt.executeQuery();
+//		while (set.next()) {
+//			System.out.println(set.getString(1));
+//		}
+//
+//	}
 }

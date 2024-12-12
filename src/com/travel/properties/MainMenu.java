@@ -18,26 +18,26 @@ public class MainMenu {
 		int Choice = Constants.sc.nextInt();
 		switch (Choice) {
 		case 1:
-			UserJourneyRegister.registartion();
-//			break;
+			UserJourneyRegister.registartion();//plan journey
+			break;
 		case 2:
-			UserServiceTravelTickets.GetTicketInformation();
+			UserServiceTravelTickets.GetTicketInformation();//get tickets
 			break;
 		case 3:
-			UserserviceReschedule.Reschedule();
+			UserserviceReschedule.Reschedule();//reschedule ticket
 			break;
 		case 4:
-			UserServiceUpdatePassword.UpdatePasswordAfterLogin();
+			UserServiceUpdatePassword.UpdatePasswordAfterLogin();//update password after login
 			break;
 		case 5:
-			UserFeatureTravelStatus.FeatureImplement();
+			UserFeatureTravelStatus.FeatureImplement();//travel status
 			break;
 		case 6:
 			// canceling ticket
-			UserServiceTicketCancellation.CancelTicket();
+			UserServiceTicketCancellation.CancelTicket();//cancel ticket
 			break;
 		case 7:
-			UserServiceLogout.Logout();
+			UserServiceLogout.Logout();//logout
 			break;
 		default:
 			System.out.println("select the certain one ");

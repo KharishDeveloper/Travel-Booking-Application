@@ -16,17 +16,18 @@ public class Home {
 		UserChoice = Constants.sc.nextInt();
 		switch (UserChoice) {
 		case 1:
-			UserServiceRegisterLogic.UserService();
+			UserServiceRegisterLogic.UserService();//register
 		case 2:
-			UserServiceLoginLogic.pwd();
+			UserServiceLoginLogic.pwd();//login
 			break;
 		case 3:
-			ApplicationClosed.ClosingProperty();
+			ApplicationClosed.ClosingProperty();//exit
 			break;
 		default:
 			System.out.println("select the valid option !!!");
 			System.out.println(" ");
-			break;
+			Home.HomePage();
+//			break;
 		}
 	}
 }

@@ -31,12 +31,10 @@ public class UserServiceTravelTickets {
 		TravelStatusFeatureDB.UpdateTravelStatus(Constants.DoConnect(), checkID, UserServiceTravelTickets.id);
 		GetTicketsDB.GetInformationFromDetails(Constants.DoConnect(), id);
 		if(UserFeatureTravelStatus.TravelStatus.equalsIgnoreCase("completed the travel")) {
-			System.out.println("h1");
 			System.out.println("no bookings or your travel was completed !!!");
 			MainMenu.Main();
 		}
 		else {
-			System.out.println("h2");
 			GetTicketsDB.GetPassengerInformation(Constants.DoConnect(), id);
 			MainMenu.Main();
 //			break;

@@ -10,7 +10,7 @@ public class Execute {
 	public static void main(String[] args) throws NullPointerException, SQLException, IOException {
 
 		Constants.GetLogoInformation();
-
+		
 	}
 
 }

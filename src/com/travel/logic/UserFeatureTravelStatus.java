@@ -16,6 +16,8 @@ public class UserFeatureTravelStatus {
 
 		try {
 
+			System.out.println("Enter the HTTS-ID : ");
+			UserServiceTravelTickets.id = Constants.sc.next();
 			String checkID = TravelStatusFeatureDB.GetTravelDate(Constants.DoConnect(), UserServiceTravelTickets.id);
 			TravelStatus(checkID);
 			TravelStatusFeatureDB.UpdateTravelStatus(Constants.DoConnect(), checkID, UserServiceTravelTickets.id);

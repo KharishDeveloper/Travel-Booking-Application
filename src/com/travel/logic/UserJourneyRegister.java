@@ -36,6 +36,12 @@ public class UserJourneyRegister {
 		DayOfWeek WeekValue = TravelDate.getDayOfWeek();
 		orgBook = Journeydetails.Bookings * 3;
 		BusServiceDB.GetBusBookingDetails(Journeydetails.Source, Journeydetails.Destination);
+		BusNumber = BusServiceDB.RetrieveBusNumber(Constants.DoConnect(), Journeydetails.Source, Journeydetails.Destination);
+		System.out.println("Total available buses in this route : "+BusServiceDB.availableBuses);
+		if(BusServiceDB.availableBuses>=2) {
+			System.out.print("Enter the bus Number : ");
+			BusNumber=Constants.sc.nextInt();
+		}
 		if (Journeydetails.Bookings <= 5) {
 			System.out.println("getting availability");
 			//taking the bus number from user
@@ -60,8 +66,14 @@ public class UserJourneyRegister {
 					ActualAmount = (ActualAmount + 200) * Journeydetails.Bookings;
 					System.out.println("Total price :\t" + FareAmount);
 					System.out.println("remaining seats :" + RemainingSeats);
-					BusServiceDB.UpdateSeats(Constants.DoConnect(), RemainingSeats, Journeydetails.Source,
-							Journeydetails.Destination);
+//					int BusNumberReceived = BusServiceDB.RetrieveBusNumber(Constants.DoConnect(), Journeydetails.Source, Journeydetails.Destination);
+////					System.out.println("Total available buses in this route : "+BusServiceDB.availableBuses);
+////					if(BusServiceDB.availableBuses>=2) {
+////						System.out.print("Enter the bus Number : ");
+////						BusNumberReceived=Constants.sc.nextInt();
+////					}
+					System.out.println("Bus Number : "+BusNumber);
+					BusServiceDB.UpdateSeats(Constants.DoConnect(), RemainingSeats, BusNumber);
 
 				} else {
 					System.out.println("Total price :\t" + FareAmount);// (fare_amount+(org_amount*booking)) +"
@@ -82,9 +94,11 @@ public class UserJourneyRegister {
 //				Journeydetails.Destination);
 		BusServiceDB.InsertDetails(Constants.DoConnect(), Journeydetails.Bookings, Journeydetails.Source,
 				Journeydetails.Destination, TaxAmount, FareAmount, BusNumber);
-		BusServiceDB.UpdateSeats(Constants.DoConnect(), RemainingSeats, Journeydetails.Source,
-				Journeydetails.Destination);
+//		int BusNumberReceived = BusServiceDB.RetrieveBusNumber(Constants.DoConnect(), Journeydetails.Source, Journeydetails.Destination);
+		BusServiceDB.UpdateSeats(Constants.DoConnect(), RemainingSeats, BusNumber);
+
 		System.out.println("booking value : " + Journeydetails.Bookings);
+		BusServiceDB.availableBuses=0;
 		System.out.println("done the process");
 		Booker();
 	}

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import com.travel.entity.Journeydetails;
 import com.travel.entity.UserServiceLogin;
-import com.travel.logic.UserServiceTravelTickets;
 import com.travel.properties.MainMenu;
 
 public class CancelTicketDB {
@@ -39,17 +38,31 @@ public class CancelTicketDB {
 			PreparedStatement deletebook = connect.prepareStatement(sql1);
 			deletebook.setString(1, id);
 			System.out.println("deleting bookings info");
-			boolean execute = deletebook.execute();
+			deletebook.execute();
 			System.out.println("row(s) deleted in details table : " + b);
 			String sql2 = "delete from details where HTTS=?;";
 			PreparedStatement stmt2 = connect.prepareStatement(sql2);
 			stmt2.setString(1, id);
-			boolean c = stmt2.execute();
-			System.out.println("Successfully deleted the "+id +" current booking information as per your request !!!");
+			stmt2.execute();
+			System.out
+					.println("Successfully deleted the " + id + " current booking information as per your request !!!");
 			MainMenu.Main();
 		} else {
 			System.out.println("not available to cancel the upcoming travel !!!");
 			MainMenu.Main();
 		}
+	}
+
+	public static boolean CheckCancelActivity(Connection con, String id, String LoggedInMobNumber) throws SQLException {
+		String sql = "select mobile from details where HTTS=?;";
+		PreparedStatement pstCancel = con.prepareStatement(sql);
+		pstCancel.setString(1, id);
+		ResultSet set = pstCancel.executeQuery();
+		if (set.next()) {
+			if (set.getString(1).equals(LoggedInMobNumber)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -11,7 +11,7 @@ import com.travel.logic.UserJourneyRegister;
 public class GetTicketsDB {
 
 	public static void GetInformationFromDetails(Connection con, String id) throws SQLException {
-		String sql = "select HTTS,mobile,fare,bookings,travelDate,startingplace,destination,ticketStatus from details where HTTS=?;";
+		String sql = "select HTTS,mobile,fare,bookings,travelDate,startingplace,destination,ticketStatus,BusNumber from details where HTTS=?;";
 		PreparedStatement pst = con.prepareStatement(sql);
 		pst.setString(1, id);
 		ResultSet result = pst.executeQuery();
@@ -24,19 +24,31 @@ public class GetTicketsDB {
 		}
 	}
 
-	public static void GetPassengerInformation(Connection con, String id) throws SQLException{
+	public static void GetPassengerInformation(Connection con, String id) throws SQLException {
 		String Query = "select booking1_name,booking1_number,booking1_age,booking2_name, booking2_number,booking2_age,booking3_name, booking3_number,booking3_age,booking4_name, booking4_number,booking4_age,booking5_name, booking5_number,booking5_age from bookings where HTTS_ID=?;";
 		PreparedStatement stmt = con.prepareStatement(Query);
 		stmt.setString(1, id);
 		ResultSet set = stmt.executeQuery();
 		ResultSetMetaData data = set.getMetaData();
-		while(set.next()) {
+		while (set.next()) {
 			System.out.println(UserJourneyRegister.orgBook);
-			for(int i=1;i<=UserJourneyRegister.orgBook;i=i+3) {
-				System.out.println(data.getColumnName(i)+" : "+set.getString(i));
-				System.out.println(data.getColumnName(i+1)+" : "+set.getString(i+1));
-				System.out.println(data.getColumnName(i+2)+" : "+set.getString(i+2));
+			for (int i = 1; i <= UserJourneyRegister.orgBook; i = i + 3) {
+				System.out.println(data.getColumnName(i) + " : " + set.getString(i));
+				System.out.println(data.getColumnName(i + 1) + " : " + set.getString(i + 1));
+				System.out.println(data.getColumnName(i + 2) + " : " + set.getString(i + 2));
 			}
 		}
+	}
+
+	public static boolean CheckHTTSId(Connection con, String id) throws SQLException {
+		
+		String sql="select HTTS from details where HTTS=?;";
+		PreparedStatement statement = con.prepareStatement(sql);
+		statement.setString(1, id);
+		ResultSet set = statement.executeQuery();
+		if(set.next()) {
+			return true;
+		}
+		return false;
 	}
 }
