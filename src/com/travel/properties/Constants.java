@@ -21,7 +21,7 @@ public class Constants {
 	public static Connection DoConnect() {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/haritravel_withforeign", "root",
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/travelapplication", "root",
 					"Harish@123");
 		} catch (SQLException e) {
 			System.out.println("fail to establish the database connection");

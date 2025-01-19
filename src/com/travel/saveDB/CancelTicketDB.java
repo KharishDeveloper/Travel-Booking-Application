@@ -22,7 +22,7 @@ public class CancelTicketDB {
 			Journeydetails.Source = executeQuery.getString(2);
 			Journeydetails.Destination = executeQuery.getString(3);
 			Journeydetails.Bookings = executeQuery.getInt(4);
-			String sql = "insert into cancellation values(?,?,?,?,?,?,CURRENT_TIMESTAMP());";// entering the values in
+			String sql = "insert into cancellation(HTTS_ID,Mobile, TravelDate, starting_place, destination, Bookings, InsertedAt) values(?,?,?,?,?,?,CURRENT_TIMESTAMP());";// entering
 			// cancellation table
 
 			System.out.println("travel date :" + Journeydetails.Date);

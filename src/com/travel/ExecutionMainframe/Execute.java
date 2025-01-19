@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import com.travel.properties.Constants;
 
 public class Execute {
-
+	
 	public static void main(String[] args) throws NullPointerException, SQLException, IOException {
 
 		Constants.GetLogoInformation();
 		
+//		Journeydetails.mappingJouneyDetails();
+		
+//		GetTicketsDB.GetPassengerInformation(Constants.DoConnect(), "1005");
 	}
 
 }

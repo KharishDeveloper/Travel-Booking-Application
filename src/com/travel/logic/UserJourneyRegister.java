@@ -12,19 +12,14 @@ import com.travel.saveDB.BusServiceDB;
 
 public class UserJourneyRegister {
 
-	public static String name, number;
-	public static int RemainingSeats, FareAmount, TaxAmount, age, orgBook, BusNumber;
+	public static String name, number,BusNumber, BusName;
+	public static int RemainingSeats, FareAmount, TaxAmount, age;// orgBook;
 
 	public static void registartion() throws SQLException {
 
-//		System.out.println("today date is :" + LocalDate.now());
-//		System.out.println("enter the details of your journey");
-//		System.out.println("Enter the date :[YYYY-MM-DD]");
-//		Date = Constants.sc.next();
 		Journeydetails.mappingJouneyDetails();
 		LocalDate TravelDate = LocalDate.parse(Journeydetails.Date);
 		long Days = ChronoUnit.DAYS.between(LocalDate.now(), TravelDate);
-//		System.out.println(Days);
 		while (Days < 1) {
 			System.out.println("please enter the valid date");
 			Journeydetails.Date = Constants.sc.next();
@@ -34,18 +29,18 @@ public class UserJourneyRegister {
 		}
 		System.out.println("your journey date is :" + TravelDate);
 		DayOfWeek WeekValue = TravelDate.getDayOfWeek();
-		orgBook = Journeydetails.Bookings * 3;
-		BusServiceDB.GetBusBookingDetails(Journeydetails.Source, Journeydetails.Destination);
-		BusNumber = BusServiceDB.RetrieveBusNumber(Constants.DoConnect(), Journeydetails.Source, Journeydetails.Destination);
+//		orgBook = Journeydetails.Bookings * 3;
+		BusServiceDB.GetBusDetails(Journeydetails.Source, Journeydetails.Destination);
 		System.out.println("Total available buses in this route : "+BusServiceDB.availableBuses);
 		if(BusServiceDB.availableBuses>=2) {
 			System.out.print("Enter the bus Number : ");
-			BusNumber=Constants.sc.nextInt();
+			BusNumber=Constants.sc.next();
 		}
 		if (Journeydetails.Bookings <= 5) {
 			System.out.println("getting availability");
 			//taking the bus number from user
 			//and maintain the entries value in get bus booking details
+//			BusServiceDB.SelectReservationClass(Constants.DoConnect(), BusNumber);
 			int AvailableSeats = BusServiceDB.seats;
 			System.out.println("available seats : " + AvailableSeats);
 			if ((AvailableSeats <= Journeydetails.Bookings)) {// 5->seats
@@ -55,6 +50,7 @@ public class UserJourneyRegister {
 				System.out.println("application terminated !!!");
 			} else {
 				System.out.println("available");
+				BusServiceDB.SelectReservationClass(Constants.DoConnect(), BusNumber);
 				int ActualAmount = BusServiceDB.amount * Journeydetails.Bookings;
 				System.out.println("amount : " + BusServiceDB.amount);
 				System.out.println("Ticket price :\t" + ActualAmount);
@@ -66,12 +62,6 @@ public class UserJourneyRegister {
 					ActualAmount = (ActualAmount + 200) * Journeydetails.Bookings;
 					System.out.println("Total price :\t" + FareAmount);
 					System.out.println("remaining seats :" + RemainingSeats);
-//					int BusNumberReceived = BusServiceDB.RetrieveBusNumber(Constants.DoConnect(), Journeydetails.Source, Journeydetails.Destination);
-////					System.out.println("Total available buses in this route : "+BusServiceDB.availableBuses);
-////					if(BusServiceDB.availableBuses>=2) {
-////						System.out.print("Enter the bus Number : ");
-////						BusNumberReceived=Constants.sc.nextInt();
-////					}
 					System.out.println("Bus Number : "+BusNumber);
 					BusServiceDB.UpdateSeats(Constants.DoConnect(), RemainingSeats, BusNumber);
 
@@ -104,15 +94,13 @@ public class UserJourneyRegister {
 	}
 
 	public static void BookingPassengerInformation() throws SQLException {
-		System.out.println("Enter the name : ");
-		name = Constants.sc.next();
-		System.out.println(name);
+		Constants.sc.nextLine();
+		System.out.println("Enter the full name : ");
+		name = Constants.sc.nextLine();
 		System.out.println("Enter the Mobile number : ");
-		number = Constants.sc.next();
-		System.out.println(number);
+		number = Constants.sc.nextLine();
 		System.out.println("Enter the age : ");
 		age = Constants.sc.nextInt();
-		System.out.println(age);
 	}
 
 	public static void Booker() throws SQLException {
