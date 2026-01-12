@@ -7,6 +7,20 @@ import java.sql.SQLException;
 
 public class UserServiceLoginDB {
 
+	public static boolean CheckMailAndPwd(Connection con, String mobile, String password) throws SQLException {
+		String sql = "select password from users_data where email=?;";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setString(1, mobile);
+		ResultSet set = stmt.executeQuery();
+		if (set.next()) {
+			if (set.getString(1).equals(password)) {
+				System.out.println("login successfull");
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public static boolean CheckMobAndPwd(Connection con, String mobile, String password) throws SQLException {
 		String sql = "select password from users_data where mobile=?;";
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -18,9 +32,6 @@ public class UserServiceLoginDB {
 				return true;
 			}
 		}
-//		else {
-//			System.out.println("invalid mobile number !!!");
-//		}
 		return false;
 	}
 
@@ -43,11 +54,11 @@ public class UserServiceLoginDB {
 	}
 
 	public static String GetRole(Connection con, String mobile) throws SQLException {
-		String sql="select ROLE from specialaccounts where MobileNumber=?;";
+		String sql = "select ROLE from specialaccounts where MobileNumber=?;";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setString(1, mobile);
 		ResultSet set = stmt.executeQuery();
-		if(set.next()) {
+		if (set.next()) {
 			return set.getString(1);
 		}
 		return null;

@@ -11,9 +11,6 @@ public class Execute {
 
 		Constants.GetLogoInformation();
 		
-//		Journeydetails.mappingJouneyDetails();
-		
-//		GetTicketsDB.GetPassengerInformation(Constants.DoConnect(), "1005");
 	}
 
 }

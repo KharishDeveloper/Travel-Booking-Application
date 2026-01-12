@@ -14,7 +14,7 @@ public class Constants {
 
 	public static int FailedCount = 3;
 	public static String HTTSID;
-	public static final File Logo = new File("C:\\Users\\haris\\OneDrive\\Desktop\\file folders\\logo.txt");
+	public static final File Logo = new File("C:\\Users\\haris\\OneDrive\\Desktop\\text files\\pravasa connect1.txt");
 	public static Scanner sc = new Scanner(System.in);
 	
 
@@ -31,8 +31,7 @@ public class Constants {
 	}
 
 	public static void GetLogoInformation() throws IOException, NullPointerException, SQLException {
-		File f = new File("C:\\Users\\haris\\OneDrive\\Desktop\\file folders\\logo.txt");
-		FileInputStream fis = new FileInputStream(f);
+		FileInputStream fis = new FileInputStream(Logo);
 		int reader;
 		while ((reader = fis.read()) != -1) {
 			System.out.print((char) reader);

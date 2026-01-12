@@ -13,8 +13,16 @@ public class UserServiceLoginLogic {
 
 	public static void pwd() throws SQLException, NullPointerException, IOException {
 		UserServiceLogin.TravelLogin();
-		boolean checkMobAndPwd = UserServiceLoginDB.CheckMobAndPwd(Constants.DoConnect(), UserServiceLogin.MobileNumber,
+		boolean checkMobAndPwd=false;
+		boolean CheckMailOrMob=(UserServiceLogin.MobileNumber.contains("@") && UserServiceLogin.MobileNumber.contains(".com"));
+		if(CheckMailOrMob) {
+		checkMobAndPwd = UserServiceLoginDB.CheckMailAndPwd(Constants.DoConnect(), UserServiceLogin.MobileNumber,
 				UserServiceLogin.Password);
+		}else {
+			checkMobAndPwd = UserServiceLoginDB.CheckMobAndPwd(Constants.DoConnect(), UserServiceLogin.MobileNumber,
+					UserServiceLogin.Password);
+		}
+		
 		if (checkMobAndPwd) {
 
 			System.out.println("you have successfully logged in to your haritravels account !!!");
